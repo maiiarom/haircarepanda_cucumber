@@ -80,11 +80,12 @@ public class StepDefinitions {
         quantityInitial = basketPage.getValueProductQuantity();
         priceInitial = basketPage.getValueProductPrice();
         basketPage.plusIconClick();
-        Thread.sleep(5000);
     }
 
     @Then("the quantity of products is increased")
     public void the_quantity_of_products_is_increased() {
+        String quantityCheckString = String.valueOf(quantityInitial + 1);
+        Waiters.waitForChangedValue(basketPage.getProductQuantity(), 5, "value", quantityCheckString);
         quantityResult = basketPage.getValueProductQuantity();
         Assert.assertEquals(quantityInitial + 1, quantityResult);
     }
